@@ -38,10 +38,10 @@ Make note of the values in the Outputs section of the CloudFormation stack. You 
 ```
 # Obtain PRTP code
 cd /home/ec2-user/environment
-git clone https://github.com/aws-samples/polly-reads-the-page-blog.git
+git clone git@github.com:aws-samples/amazon-polly-reads-the-page.git
 
 # Navigate to that code
-cd polly-reads-the-page-blog/setup
+cd amazon-polly-reads-the-page/setup
 
 # Install Saxon and html5 Python lib. For pre-gen.
 sh ./setup.sh <StackName>
