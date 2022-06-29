@@ -1,0 +1,195 @@
+<html>
+<!--
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+SPDX-License-Identifier: MIT-0
+-->
+
+<head>
+	<title>PollyReadsThePage Normal Test Page</title>
+</head>
+
+<body>
+	<style id='prtp-audio-style'>
+		#prtp-audio {
+			position: sticky;
+			z-index: 100;
+			top: 0;
+		}
+	</style>
+	<!-- 
+AWS POLLY CODE. 
+-->
+	<table id="prtp-audio">
+		<tr>
+			<td>
+				<audio id="audio" controls="true">
+					<source src="polly/PRTPStaticCustom/en-US/Joanna.mp3" type="audio/mpeg">
+					Your browser does not support the audio element.
+				</audio>
+			</td>
+			<td><select id="voiceSelect" onchange="setVoice(document.getElementById('voiceSelect').value);">
+					<option value="Joanna" selected>Joanna</option>
+					<option value="Matthew">Matthew</option>
+				</select>
+			</td>
+			<td><select id="speedSelect"
+					onchange="document.getElementById('audio').playbackRate=document.getElementById('speedSelect').value;">
+					<option value="0.25">0.25</option>
+					<option value="0.5">0.5</option>
+					<option value="0.75">0.75</option>
+					<option value="1.0" selected>1.0</option>
+					<option value="1.25">1.25</option>
+					<option value="1.5">1.5</option>
+					<option value="1.75">1.75</option>
+					<option value="2.0">2.0</option>
+				</select></td>
+		</tr>
+	</table>
+	<script type="text/javascript">
+		const POLLY_LANG_FULL = "en-US";
+		const POLLY_PAGE = "PRTPStaticCustom";
+		const POLLY_VOICES = ["Joanna", "Matthew"]; 
+	</script>
+	<script type="text/javascript" src="env.js"></script>
+	<script type="text/javascript" src="PRTP.js">
+	</script>
+
+
+	<div id="title">
+		<h1>PollyReadsThePage Normal Test Page</h1>
+	</div>
+
+	<div id="main">
+		<p>PollyReadsThePage is a test page for audio readout with highlights.
+		<p onclick="expandCollapseList();">Here are some features:</p>
+		<ul id="mainlist">
+			<li>Skips hidden paragraph</li>
+			<li>Speaks but does not highlight collapsed content</li>
+			<li>Highlights sentences, even ones with awkward punctuation and markup</li>
+			<li>Automatically scrolls</li>
+			<li>Reads alt text of photos</li>
+			<li>Reads table layout in intuitive order: NW, NE, SW, SE.</li>
+			<li>Reads tables intuitively</li>
+		</ul>
+		<p hidden>This paragraph should be hidden.</p>
+	</div>
+
+	<script>
+		function expandCollapseList() {
+			const mainlist = document.getElementById("mainlist");
+			const currentState = mainlist.style.display;
+			if (currentState == "none") {
+				mainlist.style.display = "block";
+			} else {
+				mainlist.style.display = "none";
+			}
+		}
+	</script>
+
+	<table border="1" id="maintable">
+		<tr>
+			<td>
+				<h2>Today's Articles</h2>
+				<p><a href="example.com/1">Nozick and the Wilt Chamberlain Argument</a>
+				<p><a href="example.com/1">Plinko, Will, and Theistic Proof</a>
+				<p><a href="example.com/1">Is Data Science a Science?</a>
+				<p><a href="example.com/1">amazon.com History</a>
+			</td>
+			<td>
+				<h2>Photo of the Day</h2>
+				<img src="https://avatar.amuniversal.com/feature_avatars/recommendation_images/features/ga/large_rec-201701251556.jpg"
+					alt="Random picture of cat" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<h2>Quote of the Day</h2>
+				<P>The ability to quote is a serviceable substitute for wit. - Somerset Maugham
+			</td>
+			<td>
+				<h2>Jokes of the Day</h2>
+				<pre>
+1. There's a fine line between a numerator and a denominator. (Only a fraction of people will get this clean joke.)
+
+2. What do dentists call their x-rays?
+
+Tooth pics!
+
+3. Did you hear about the first restaurant to open on the moon?
+
+It had great food, but no atmosphere.
+
+4. What did one ocean say to the other ocean?
+
+Nothing, it just waved.
+
+5. Do you want to hear a construction joke?
+
+Sorry, I'm still working on it.		
+</pre></td>
+			</td>
+		</tr>
+	</table>
+
+	<div id="qbtable">
+		<h2>QB Best Sellers</h2>
+		<table id="qb" border="2">
+			<tr>
+				<th>Author</th>
+				<th>Title</th>
+				<th>Rank</th>
+			</tr>
+			<tr>
+				<td><span style="color:blue">Tom Brady</span></td>
+				<td>The GOAT Story</td>
+				<td>1</td>
+			</tr>
+			<tr>
+				<td>Norm van Brocklin</td>
+				<td>The Old Days</td>
+				<td>2</td>
+			</tr>
+			<tr>
+				<td>Ed Luther</td>
+				<td>A Better Dan Fouts</td>
+				<td>3</td>
+			</tr>
+			<tr>
+				<td>Doug Flutie</td>
+				<td>I'm Not a Flake. I Just Pitch Cereal</td>
+				<td>4</td>
+			</tr>
+			<tr>
+				<td>Bernie Kosar</td>
+				<td>Should Have Been a Steeler</td>
+				<td>5</td>
+			</tr>
+			<tr>
+				<td>George Plimpton</td>
+				<td>Ten thousand men of Harvard gained vict'ry today</td>
+				<td>11</td>
+			</tr>
+			<tr>
+				<td>George Plimpton</td>
+				<td>Fair Harvard holds sway</td>
+				<td>12</td>
+			</tr>
+		</table>
+	</div>
+
+	<div id="wrapup">
+
+		<form submit="example.com/feedback">
+			<p><input type="text" id="word">Your thoughts in one word</input>
+			<p><input type="hidden" id="secret" value="abc123" />
+			<p><input type="submit" />
+		</form>
+
+		<p>Last updated April 1, 2002
+		<p><a href="https://example.com/askmike">Questions for dev team</a>
+
+	</div>
+
+</body>
+
+</html>

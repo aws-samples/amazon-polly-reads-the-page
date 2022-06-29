@@ -1,0 +1,13 @@
+{
+ "inclusions": [ 
+ 	{"id" : "title"} , 
+ 	{"id": "main"}, 
+ 	{"id": "maintable"}, 
+ 	{"id": "qbtable"}, 
+ 	{"xpath": "div[@id='pivtable']"}
+ ],
+ "exclusions": [
+ 	{"id": "wrapup"}
+ ]
+}
+

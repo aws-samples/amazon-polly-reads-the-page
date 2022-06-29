@@ -1,0 +1,111 @@
+{"time":0,"type":"sentence","start":172,"end":206,"value":"PollyReadsThePage Normal Test Page"}
+{"time":125,"type":"ssml","start":93,"end":128,"value":"\/html\/body[1]\/div[1]"}
+{"time":125,"type":"ssml","start":131,"end":172,"value":"\/html\/body[1]\/div[1]\/h1[1]"}
+{"time":2237,"type":"ssml","start":210,"end":245,"value":"\/html\/body[1]\/div[2]"}
+{"time":2237,"type":"ssml","start":248,"end":288,"value":"\/html\/body[1]\/div[2]\/p[1]"}
+{"time":2917,"type":"sentence","start":288,"end":355,"value":"PollyReadsThePage is a test page for audio readout with highlights."}
+{"time":6517,"type":"ssml","start":362,"end":402,"value":"\/html\/body[1]\/div[2]\/p[2]"}
+{"time":7197,"type":"sentence","start":402,"end":425,"value":"Here are some features:"}
+{"time":8409,"type":"ssml","start":432,"end":479,"value":"\/html\/body[1]\/div[2]\/ul[1]\/li[1]"}
+{"time":9089,"type":"sentence","start":479,"end":501,"value":"Skips hidden paragraph"}
+{"time":10489,"type":"ssml","start":508,"end":555,"value":"\/html\/body[1]\/div[2]\/ul[1]\/li[2]"}
+{"time":11169,"type":"sentence","start":555,"end":602,"value":"Speaks but does not highlight collapsed content"}
+{"time":13669,"type":"ssml","start":609,"end":656,"value":"\/html\/body[1]\/div[2]\/ul[1]\/li[3]"}
+{"time":14349,"type":"sentence","start":656,"end":723,"value":"Highlights sentences, even ones with awkward punctuation and markup"}
+{"time":18024,"type":"ssml","start":730,"end":777,"value":"\/html\/body[1]\/div[2]\/ul[1]\/li[4]"}
+{"time":18704,"type":"sentence","start":777,"end":798,"value":"Automatically scrolls"}
+{"time":19979,"type":"ssml","start":805,"end":852,"value":"\/html\/body[1]\/div[2]\/ul[1]\/li[5]"}
+{"time":20647,"type":"sentence","start":852,"end":876,"value":"Reads alt text of photos"}
+{"time":22247,"type":"ssml","start":883,"end":930,"value":"\/html\/body[1]\/div[2]\/ul[1]\/li[6]"}
+{"time":22914,"type":"sentence","start":930,"end":984,"value":"Reads table layout in intuitive order: NW, NE, SW, SE."}
+{"time":28252,"type":"ssml","start":991,"end":1038,"value":"\/html\/body[1]\/div[2]\/ul[1]\/li[7]"}
+{"time":28932,"type":"sentence","start":1038,"end":1062,"value":"Reads tables intuitively"}
+{"time":30507,"type":"ssml","start":1066,"end":1103,"value":"\/html\/body[1]\/table[2]"}
+{"time":30507,"type":"ssml","start":1106,"end":1170,"value":"\/html\/body[1]\/table[2]\/tbody[1]\/tr[1]\/td[1]\/h2[1]"}
+{"time":31187,"type":"sentence","start":1170,"end":1186,"value":"Today's Articles"}
+{"time":32274,"type":"ssml","start":1193,"end":1256,"value":"\/html\/body[1]\/table[2]\/tbody[1]\/tr[1]\/td[1]\/p[1]"}
+{"time":32942,"type":"sentence","start":1256,"end":1296,"value":"Nozick and the Wilt Chamberlain Argument"}
+{"time":34879,"type":"ssml","start":1303,"end":1366,"value":"\/html\/body[1]\/table[2]\/tbody[1]\/tr[1]\/td[1]\/p[2]"}
+{"time":35547,"type":"sentence","start":1366,"end":1398,"value":"Plinko, Will, and Theistic Proof"}
+{"time":37997,"type":"ssml","start":1405,"end":1468,"value":"\/html\/body[1]\/table[2]\/tbody[1]\/tr[1]\/td[1]\/p[3]"}
+{"time":38676,"type":"sentence","start":1468,"end":1494,"value":"Is Data Science a Science?"}
+{"time":40314,"type":"ssml","start":1501,"end":1564,"value":"\/html\/body[1]\/table[2]\/tbody[1]\/tr[1]\/td[1]\/p[4]"}
+{"time":40981,"type":"sentence","start":1564,"end":1582,"value":"amazon.com History"}
+{"time":42581,"type":"ssml","start":1589,"end":1653,"value":"\/html\/body[1]\/table[2]\/tbody[1]\/tr[1]\/td[2]\/h2[1]"}
+{"time":43261,"type":"sentence","start":1653,"end":1669,"value":"Photo of the Day"}
+{"time":44274,"type":"ssml","start":1676,"end":1748,"value":"\/html\/body[1]\/table[2]\/tbody[1]\/tr[1]\/td[2]\/img[1]\/alt[1]"}
+{"time":44941,"type":"sentence","start":1748,"end":1769,"value":"Random picture of cat"}
+{"time":46329,"type":"ssml","start":1776,"end":1840,"value":"\/html\/body[1]\/table[2]\/tbody[1]\/tr[2]\/td[1]\/h2[1]"}
+{"time":47009,"type":"sentence","start":1840,"end":1856,"value":"Quote of the Day"}
+{"time":47971,"type":"ssml","start":1863,"end":1926,"value":"\/html\/body[1]\/table[2]\/tbody[1]\/tr[2]\/td[1]\/p[1]"}
+{"time":48639,"type":"sentence","start":1926,"end":1986,"value":"The ability to quote is a serviceable substitute for wit. - "}
+{"time":52006,"type":"sentence","start":1986,"end":2002,"value":"Somerset Maugham"}
+{"time":53131,"type":"ssml","start":2009,"end":2073,"value":"\/html\/body[1]\/table[2]\/tbody[1]\/tr[2]\/td[2]\/h2[1]"}
+{"time":53799,"type":"sentence","start":2073,"end":2089,"value":"Jokes of the Day"}
+{"time":54836,"type":"ssml","start":2096,"end":2161,"value":"\/html\/body[1]\/table[2]\/tbody[1]\/tr[2]\/td[2]\/pre[1]"}
+{"time":55504,"type":"sentence","start":2161,"end":2163,"value":"1."}
+{"time":56484,"type":"sentence","start":2164,"end":2222,"value":"There's a fine line between a numerator and a denominator."}
+{"time":59739,"type":"sentence","start":2224,"end":2279,"value":"Only a fraction of people will get this clean joke.) 2."}
+{"time":63169,"type":"sentence","start":2280,"end":2315,"value":"What do dentists call their x-rays?"}
+{"time":65311,"type":"sentence","start":2316,"end":2327,"value":"Tooth pics!"}
+{"time":66554,"type":"sentence","start":2328,"end":2330,"value":"3."}
+{"time":67571,"type":"sentence","start":2331,"end":2391,"value":"Did you hear about the first restaurant to open on the moon?"}
+{"time":70551,"type":"sentence","start":2392,"end":2429,"value":"It had great food, but no atmosphere."}
+{"time":73269,"type":"sentence","start":2430,"end":2432,"value":"4."}
+{"time":74286,"type":"sentence","start":2433,"end":2475,"value":"What did one ocean say to the other ocean?"}
+{"time":76766,"type":"sentence","start":2476,"end":2499,"value":"Nothing, it just waved."}
+{"time":78759,"type":"sentence","start":2500,"end":2502,"value":"5."}
+{"time":79826,"type":"sentence","start":2503,"end":2543,"value":"Do you want to hear a construction joke?"}
+{"time":81894,"type":"sentence","start":2544,"end":2575,"value":"Sorry, I'm still working on it."}
+{"time":83606,"type":"ssml","start":2579,"end":2614,"value":"\/html\/body[1]\/div[3]"}
+{"time":83606,"type":"ssml","start":2617,"end":2658,"value":"\/html\/body[1]\/div[3]\/h2[1]"}
+{"time":84274,"type":"sentence","start":2658,"end":2673,"value":"QB Best Sellers"}
+{"time":85661,"type":"ssml","start":2680,"end":2745,"value":"\/html\/body[1]\/div[3]\/table[1]\/tbody[1]\/tr[1]\/th[1]"}
+{"time":86329,"type":"sentence","start":2745,"end":2751,"value":"Author"}
+{"time":86941,"type":"ssml","start":2758,"end":2823,"value":"\/html\/body[1]\/div[3]\/table[1]\/tbody[1]\/tr[1]\/th[2]"}
+{"time":87621,"type":"sentence","start":2823,"end":2828,"value":"Title"}
+{"time":88196,"type":"ssml","start":2835,"end":2900,"value":"\/html\/body[1]\/div[3]\/table[1]\/tbody[1]\/tr[1]\/th[3]"}
+{"time":88876,"type":"sentence","start":2900,"end":2904,"value":"Rank"}
+{"time":89414,"type":"ssml","start":2911,"end":2984,"value":"\/html\/body[1]\/div[3]\/table[1]\/tbody[1]\/tr[2]\/td[1]\/span[1]"}
+{"time":90093,"type":"sentence","start":2984,"end":2993,"value":"Tom Brady"}
+{"time":90893,"type":"ssml","start":3000,"end":3065,"value":"\/html\/body[1]\/div[3]\/table[1]\/tbody[1]\/tr[2]\/td[2]"}
+{"time":91573,"type":"sentence","start":3065,"end":3079,"value":"The GOAT Story"}
+{"time":92523,"type":"ssml","start":3086,"end":3151,"value":"\/html\/body[1]\/div[3]\/table[1]\/tbody[1]\/tr[2]\/td[3]"}
+{"time":93191,"type":"sentence","start":3151,"end":3152,"value":"1"}
+{"time":93741,"type":"ssml","start":3159,"end":3224,"value":"\/html\/body[1]\/div[3]\/table[1]\/tbody[1]\/tr[3]\/td[1]"}
+{"time":94421,"type":"sentence","start":3224,"end":3241,"value":"Norm van Brocklin"}
+{"time":95721,"type":"ssml","start":3248,"end":3313,"value":"\/html\/body[1]\/div[3]\/table[1]\/tbody[1]\/tr[3]\/td[2]"}
+{"time":96388,"type":"sentence","start":3313,"end":3325,"value":"The Old Days"}
+{"time":97313,"type":"ssml","start":3332,"end":3397,"value":"\/html\/body[1]\/div[3]\/table[1]\/tbody[1]\/tr[3]\/td[3]"}
+{"time":97993,"type":"sentence","start":3397,"end":3398,"value":"2"}
+{"time":98481,"type":"ssml","start":3405,"end":3470,"value":"\/html\/body[1]\/div[3]\/table[1]\/tbody[1]\/tr[4]\/td[1]"}
+{"time":99161,"type":"sentence","start":3470,"end":3479,"value":"Ed Luther"}
+{"time":99961,"type":"ssml","start":3486,"end":3551,"value":"\/html\/body[1]\/div[3]\/table[1]\/tbody[1]\/tr[4]\/td[2]"}
+{"time":100641,"type":"sentence","start":3551,"end":3569,"value":"A Better Dan Fouts"}
+{"time":101891,"type":"ssml","start":3576,"end":3641,"value":"\/html\/body[1]\/div[3]\/table[1]\/tbody[1]\/tr[4]\/td[3]"}
+{"time":102558,"type":"sentence","start":3641,"end":3642,"value":"3"}
+{"time":103146,"type":"ssml","start":3649,"end":3714,"value":"\/html\/body[1]\/div[3]\/table[1]\/tbody[1]\/tr[5]\/td[1]"}
+{"time":103826,"type":"sentence","start":3714,"end":3725,"value":"Doug Flutie"}
+{"time":104701,"type":"ssml","start":3732,"end":3797,"value":"\/html\/body[1]\/div[3]\/table[1]\/tbody[1]\/tr[5]\/td[2]"}
+{"time":105381,"type":"sentence","start":3797,"end":3813,"value":"I'm Not a Flake."}
+{"time":106748,"type":"sentence","start":3814,"end":3833,"value":"I Just Pitch Cereal"}
+{"time":107961,"type":"ssml","start":3840,"end":3905,"value":"\/html\/body[1]\/div[3]\/table[1]\/tbody[1]\/tr[5]\/td[3]"}
+{"time":108628,"type":"sentence","start":3905,"end":3906,"value":"4"}
+{"time":109216,"type":"ssml","start":3913,"end":3978,"value":"\/html\/body[1]\/div[3]\/table[1]\/tbody[1]\/tr[6]\/td[1]"}
+{"time":109895,"type":"sentence","start":3978,"end":3990,"value":"Bernie Kosar"}
+{"time":110883,"type":"ssml","start":3997,"end":4062,"value":"\/html\/body[1]\/div[3]\/table[1]\/tbody[1]\/tr[6]\/td[2]"}
+{"time":111563,"type":"sentence","start":4062,"end":4088,"value":"Should Have Been a Steeler"}
+{"time":112738,"type":"ssml","start":4095,"end":4160,"value":"\/html\/body[1]\/div[3]\/table[1]\/tbody[1]\/tr[6]\/td[3]"}
+{"time":113418,"type":"sentence","start":4160,"end":4161,"value":"5"}
+{"time":114043,"type":"ssml","start":4168,"end":4233,"value":"\/html\/body[1]\/div[3]\/table[1]\/tbody[1]\/tr[7]\/td[1]"}
+{"time":114735,"type":"sentence","start":4233,"end":4248,"value":"George Plimpton"}
+{"time":115735,"type":"ssml","start":4255,"end":4320,"value":"\/html\/body[1]\/div[3]\/table[1]\/tbody[1]\/tr[7]\/td[2]"}
+{"time":116403,"type":"sentence","start":4320,"end":4368,"value":"Ten thousand men of Harvard gained vict'ry today"}
+{"time":118928,"type":"ssml","start":4375,"end":4440,"value":"\/html\/body[1]\/div[3]\/table[1]\/tbody[1]\/tr[7]\/td[3]"}
+{"time":119608,"type":"sentence","start":4440,"end":4442,"value":"11"}
+{"time":120295,"type":"ssml","start":4449,"end":4514,"value":"\/html\/body[1]\/div[3]\/table[1]\/tbody[1]\/tr[8]\/td[1]"}
+{"time":120988,"type":"sentence","start":4514,"end":4529,"value":"George Plimpton"}
+{"time":121988,"type":"ssml","start":4536,"end":4601,"value":"\/html\/body[1]\/div[3]\/table[1]\/tbody[1]\/tr[8]\/td[2]"}
+{"time":122655,"type":"sentence","start":4601,"end":4624,"value":"Fair Harvard holds sway"}
+{"time":124268,"type":"ssml","start":4631,"end":4696,"value":"\/html\/body[1]\/div[3]\/table[1]\/tbody[1]\/tr[8]\/td[3]"}
+{"time":124948,"type":"sentence","start":4696,"end":4698,"value":"12"}

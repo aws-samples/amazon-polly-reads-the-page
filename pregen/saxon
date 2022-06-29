@@ -1,0 +1,4 @@
+#!/bin/bash
+THISDIR=`pwd`
+java -jar "$THISDIR/saxon-he-10.6.jar" "$@"
+

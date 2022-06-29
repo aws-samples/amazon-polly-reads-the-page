@@ -1,0 +1,635 @@
+<html>
+<!--
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+SPDX-License-Identifier: MIT-0
+-->
+<head><title>PollyReadsThePage Dynamic Test Page</title></head>
+<body onload="setArticles(); prepAudio();">
+	<style id='prtp-audio-style'>
+		#prtp-audio {
+			position: sticky;
+			z-index: 100;
+			top: 0;
+		}
+	</style>
+<!-- 
+AWS POLLY CODE. 
+-->
+<table id="prtp-audio"><tr><td>
+
+<audio id="audio" controls="true">
+  <source src="" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio> </td>
+<td><select id="voiceSelect" onchange="setVoice(document.getElementById('voiceSelect').value);">
+<option value="Joanna" selected>Joanna</option>
+<option value="Matthew" >Matthew</option>
+</select>
+</td>
+<td><select id="speedSelect" onchange="document.getElementById('audio').playbackRate=document.getElementById('speedSelect').value;">
+<option value="0.25">0.25</option>
+<option value="0.5">0.5</option>
+<option value="0.75">0.75</option>
+<option value="1.0" selected>1.0</option>
+<option value="1.25">1.25</option>
+<option value="1.5">1.5</option>
+<option value="1.75">1.75</option>
+<option value="2.0">2.0</option>
+</select></td>
+</tr>
+<tr><td id="audioStatus">Status</td></tr>
+</table>
+
+<!-- Setup -->
+<script type="text/javascript">
+const POLLY_PAGE = null;
+const POLLY_LANG_FULL = "en-US";
+const POLLY_VOICES  = ["Joanna", "Matthew"]; 
+</script>
+
+<!-- Use the AWS SDK. This is V2. Will move to V3. -->
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.1081.0.min.js"></script>
+
+<!-- Include the PRTP -->
+<script type="text/javascript" src="env.js"></script>
+<script type="text/javascript" src="PRTP.js"></script>
+
+<!-- Page stuff I need to do. Notably this includes prepping dynamic audio -->
+<script type="text/javascript">
+
+/*
+Here is the function where I render the dynamic audio.
+Triggers: page load, greek philosopher search button
+*/
+function prepAudio() { 
+   const urlParams = new URLSearchParams(window.location.search);
+   const dynOption = urlParams.has("dynOption") ? urlParams.get("dynOption") : "default";
+   if (dynOption == "default") {
+      buildSSMLFromDefault();
+      chooseRenderAudio();
+      setVoice();
+   }
+   else if (dynOption=="config") {
+      // logic to speak the page
+      const ssml = buildSSMLFromConfig({
+       "inclusions": [ 
+         {"id" : "title"} , 
+         {"id": "main"}, 
+         {"id": "maintable"}, 
+         {"id": "phil-result"},
+         {"id": "qbtable"}, 
+       ],
+       "exclusions": [
+         {"id": "wrapup"}
+       ]
+      });
+      chooseRenderAudio();
+      setVoice();
+   }
+   else if (dynOption == "custom") {
+      createSSML();
+      buildSSMLSection(getElementByXpath("//*[@id='title']"), []);
+      buildSSMLSection(getElementByXpath("//*[@id='main']"), []);
+
+      // for main table, adjust the order NW, SW, NE, SE
+      addSSMLExplainer("Will read main tiles in order: NW, SW, NE, SE");
+      const nw = getElementByXpath("//*[@id='maintable']//tr[1]/td[1]");
+      const sw = getElementByXpath("//*[@id='maintable']//tr[2]/td[1]");
+      const ne = getElementByXpath("//*[@id='maintable']//tr[1]/td[2]");
+      const se = getElementByXpath("//*[@id='maintable']//tr[2]/td[2]");
+      [nw, sw, ne, se].forEach(dir => buildSSMLSection(dir, []));
+
+      addSSMLExplainer("Skipping philosopher results");
+
+      addSSMLExplainer("Reading QB table first three rows with inline help");
+
+      const qbHeadersX = getElementsByXpath("//*[@id='qbtable']//tr[1]/th");
+      const qbRows1_3X = getElementsByXpath("//*[@id='qbtable']//tr[position() > 1 and position() <= 4]");
+      const qbHeaders = [];
+      const qbRows = [];
+      while(node = qbHeadersX.iterateNext()) {
+         qbHeaders.push(node.innerText);
+      }
+      var rowNum = 0;
+      while(node = qbRows1_3X.iterateNext()) {
+         rowNum++;
+         addSSMLExplainer("Row " + rowNum);
+         for (var tdi = 0; tdi < node.childNodes.length; tdi++) {
+            addSSMLExplainer(qbHeaders[tdi]);
+            const cellText = node.childNodes[tdi].innerText;
+            if (cellText == "Tom Brady") {
+               addSSMLMark(getXpathOfNode(node.childNodes[tdi]));
+               startSSMLParagraph();
+               startSSMLTag("prosody", {"volume": "x-loud"});
+               addSSMLText(cellText);
+               endSSMLTag();
+               endSSMLParagraph();
+            }
+            else {
+               addSSMLValueFromSection(node.childNodes[tdi]);
+            }
+         }
+         qbRows.push(node);
+      }
+
+      chooseRenderAudio();
+      setVoice();
+   }
+   else {
+      alert("Illegal dynamic option *" + dynOption + "*, Use default|custom|config");
+   }
+
+}
+
+// https://www.kaggle.com/datasets/therohk/million-headlines
+SAMPLE_HEADLINES=`
+Aba decides against community broadcasting licence
+Act fire witnesses must be aware of defamation
+Air nz staff in aust strike for pay rise
+Air nz strike to affect australian travellers
+Ambitious olsson wins triple jump
+Antic delighted with record breaking barca
+Aussie qualifier stosur wastes four memphis match
+Aust addresses un security council over iraq
+Australia is locked into war timetable opp
+Australia to contribute 10 million in aid to iraq
+Barca take record as robson celebrates birthday in
+Bathhouse plans move ahead
+Big hopes for launceston cycling championship
+Big plan to boost paroo water supplies
+Blizzard buries united states in bills
+Brigadier dismisses reports troops harassed in
+British combat troops arriving daily in kuwait
+Bryant leads lakers to double overtime win
+Bushfire victims urged to see centrelink
+Businesses should prepare for terrorist attacks
+Calleri avenges final defeat to eliminate massu
+Call for ethanol blend fuel to go ahead
+Carews freak goal leaves roma in ruins
+Cemeteries miss out on funds
+Code of conduct toughens organ donation regulations`.split("\n").map(s => s.trim()).filter(s => s != "");
+
+function setArticles() {
+	NUM_ARTICLES=3
+	const htmlSection = document.getElementById('articles');
+	var randomList = SAMPLE_HEADLINES.map(function(item) {
+		return {
+			html: "<p>" + item,
+			order: Math.random()
+		};
+
+	});
+	randomList.sort(function(a, b) { return a.order - b.order;});
+	console.log("Sorted list");
+	console.log(randomList);
+
+	htmlSection.innerHTML = "";
+	for (var i = 0; i < NUM_ARTICLES; i++) {
+		htmlSection.innerHTML  += "<p>" + randomList[i].html;
+	}
+}
+
+/* Greek philospher data set. 
+Category needn't be specified - will be set programmatically.
+*/
+const GREEK_PHILOSOPHERS = [{
+      "subcategories": ["presocratic"],
+      "name": "Thales",
+      "startYear": -624,
+      "endYear": -546,
+      "locationName": "Miletus",
+      "pointform": ["water"]
+   },
+   {
+      "subcategories": ["presocratic"],
+      "name": "Anaximander",
+      "startYear": -610,
+      "endYear": -546,
+      "locationName": "Miletus",
+      "pointform": ["apeiron", "first fragment"]
+   },
+   {
+      "subcategories": ["presocratic"],
+      "name": "Pythagoras",
+      "startYear": -570,
+      "endYear": -495,
+      "locationName": "Samos",
+      "pointform": ["school", "no beans",
+         "pythagorean theorem", "coined term philosophy",
+         "metempsychosis", "soul of dead reborn in another body"
+      ]
+   },
+   {
+      "subcategories": ["presocratic"],
+      "name": "Anaximenes",
+      "startYear": -585,
+      "endYear": -528,
+      "locationName": "Miletus",
+      "pointform": ["air"]
+   },
+   {
+      "subcategories": ["presocratic"],
+      "name": "Xenophanes",
+      "startYear": -570,
+      "endYear": -475,
+      "locationName": "Colophon",
+      "pointform": ["incorporeal god", "scepticism"]
+   },
+   {
+      "subcategories": ["presocratic"],
+      "name": "Parmenides",
+      "startYear": -515,
+      "endYear": -445,
+      "locationName": "Elea",
+      "pointform": ["school", "reason over the senses",
+         "being is eternal", "nothing comes into being",
+         "no motion", "ontology"
+      ]
+   },
+   {
+      "subcategories": ["presocratic"],
+      "name": "Heraclitus",
+      "startYear": -535,
+      "endYear": -475,
+      "locationName": "Ephesus",
+      "pointform": ["flux", "fire",
+         "cant step into the same river twice", "logos",
+         "character is fate", "daimon"
+      ]
+   },
+   {
+      "subcategories": ["presocratic"],
+      "name": "Anaxagoras",
+      "startYear": -510,
+      "endYear": -428,
+      "locationName": "Clazomenae",
+      "pointform": ["mind", "nous",
+         "nature was unformed until mind formed it"
+      ]
+   },
+   {
+      "subcategories": ["presocratic"],
+      "name": "Empedocles",
+      "startYear": -490,
+      "endYear": -430,
+      "locationName": "Acragas",
+      "pointform": ["earth", "air", "water", "fire",
+         "love attracts them strife divides them", "reincarnation"
+      ]
+   },
+   {
+      "subcategories": ["presocratic"],
+      "name": "Zeno",
+      "startYear": -490,
+      "endYear": -430,
+      "locationName": "Elea",
+      "pointform": ["paradox", "reductio ad absurdum",
+         "motion is an illusion"
+      ]
+   },
+   {
+      "subcategories": ["presocratic"],
+      "name": "Leucippus",
+      "startYear": -490,
+      "endYear": -430,
+      "locationName": "Miletus",
+      "pointform": ["atomism", "logos",
+         "everything happens from necessity"
+      ]
+   },
+   {
+      "subcategories": ["presocratic"],
+      "name": "Protagoras",
+      "startYear": -490,
+      "endYear": -420,
+      "locationName": "Abdera",
+      "pointform": ["anti-math", "sophist", "use of words",
+         "orthopeia", "rhetoric", "relativism",
+         "man is the measure of all things", "agnosticism"
+      ]
+   },
+   {
+      "subcategories": ["presocratic"],
+      "name": "Philolaus",
+      "startYear": -470,
+      "endYear": -385,
+      "locationName": "Croton",
+      "pointform": ["limits", "harmonia",
+         "harmony of limited and unlimited", "astronomy",
+         "central fire"
+      ]
+   },
+   {
+      "subcategories": ["presocratic"],
+      "name": "Democritus",
+      "startYear": -460,
+      "endYear": -370,
+      "locationName": "Abdera",
+      "pointform": ["atomism",
+         "bastard vs legitimate knowledge"
+      ]
+   },
+   {
+      "subcategories": ["presocratic"],
+      "name": "Xenophon",
+      "startYear": -430,
+      "endYear": -354,
+      "locationName": "Athens",
+      "pointform": ["socratic dialogues"]
+   },
+   {
+      "subcategories": ["big3"],
+      "name": "Socrates",
+      "startYear": -469,
+      "endYear": -399,
+      "locationName": "Athens"
+   },
+   {
+      "subcategories": ["big3"],
+      "name": "Plato",
+      "startYear": -427,
+      "endYear": -347,
+      "locationName": "Athens"
+   },
+   {
+      "subcategories": ["big3"],
+      "name": "Aristotle",
+      "startYear": -384,
+      "endYear": -322,
+      "locationName": "Stagira"
+   },
+   {
+      "subcategories": ["hellenistic", "cynic"],
+      "name": "Diogenes",
+      "startYear": -412,
+      "endYear": -323,
+      "locationName": "Sinope",
+      "pointform": ["return to simplicity of nature",
+         "austerity", "cosmopolitanism", "citizen of the world",
+         "dog-like behavior", "hoarding", "indifference to life",
+         "self-sufficiency", "opposed to conventional thinking"
+      ]
+   },
+   {
+      "subcategories": ["hellenistic", "epicurean"],
+      "name": "Epicurus",
+      "startYear": -341,
+      "endYear": -271,
+      "locationName": "Samos",
+      "pointform": ["pleasure and pain",
+         "good and evil", "strive to be free of suffering",
+         "tranquility", "ataraxia", "avoidance of overindulgence",
+         "problem of evil paradox",
+         "principle of multiple explanations"
+      ]
+   },
+   {
+      "subcategories": ["hellenistic", "sceptic"],
+      "name": "Pyrrho",
+      "startYear": -360,
+      "endYear": -270,
+      "locationName": "Elis"
+   },
+   {
+      "subcategories": ["hellenistic", "stoic"],
+      "name": "Zeno The Stoic",
+      "startYear": -334,
+      "endYear": -262,
+      "locationName": "Citium",
+      "pointform": [
+         "fire",
+         "the universe accomplishes what is right and prevents the opposite",
+         "live according to the reason of the universe",
+         "self-preservation"
+      ]
+   },
+   {
+      "subcategories": ["hellenistic", "stoic"],
+      "name": "Cleanthes",
+      "startYear": -330,
+      "endYear": -230,
+      "locationName": "Assos",
+      "pointform": ["pantheism",
+         "soul is material substance", "souls live after death",
+         "avoid the passions", "live consistently"
+      ]
+   },
+   {
+      "subcategories": ["hellenistic", "stoic"],
+      "name": "Chrysippus",
+      "startYear": -280,
+      "endYear": -207,
+      "locationName": "Soli",
+      "pointform": ["logic", "syllogism",
+         "knowledge is empircal", "all things happen by fate",
+         "everything is caused",
+         "acts are determined but how we respond is a moral choice",
+         "compatibilism"
+      ]
+   },
+   {
+      "subcategories": ["hellenistic", "stoic"],
+      "name": "Cicero",
+      "startYear": -106,
+      "endYear": -43,
+      "locationName": "Arpino"
+   },
+   {
+      "subcategories": ["hellenistic", "stoic"],
+      "name": "Epictetus",
+      "startYear": 55,
+      "endYear": 135,
+      "locationName": "Hierapolis",
+      "pointform": ["self-knowledge",
+         "practice over logic",
+         "we have no power over external things",
+         "do not be troubled by loss"
+      ]
+   },
+   {
+      "subcategories": ["hellenistic", "stoic"],
+      "name": "Marcus Aurelius",
+      "startYear": 121,
+      "endYear": 180,
+      "locationName": "Rome",
+      "pointform": ["philosopher king"]
+   },
+   {
+      "subcategories": ["hellenistic", "neo-platonic"],
+      "name": "Plotinus",
+      "startYear": 204,
+      "endYear": 270,
+      "locationName": "Lycopolis",
+      "pointform": ["the one"]
+   },
+   {
+      "subcategories": ["hellenistic"],
+      "name": "Augustine",
+      "startYear": 354,
+      "endYear": 430,
+      "locationName": "Hippo",
+      "pointform": ["christian", "catholic", "easter people"]
+   },
+   {
+      "subcategories": ["hellenistic"],
+      "name": "Hypatia",
+      "startYear": 370,
+      "endYear": 415,
+      "locationName": "Alexandria",
+      "pointform": ["female", "math"]
+   },
+   {
+      "subcategories": ["hellenistic", "neo-platonic"],
+      "name": "Boethius",
+      "startYear": 480,
+      "endYear": 524,
+      "locationName": "Rome",
+      "pointform": ["martyr",
+         "last of the romans"
+      ]
+   }
+];
+
+function findPhilosophers() {
+
+	const date1 = parseInt(document.getElementById("date1").value);
+	const date2 = parseInt(document.getElementById("date2").value);
+	console.log(date1);
+	console.log(date2);
+	if (""+ date1 == "NaN" || ""+ date2 == "NaN" || date1 > date2) {
+		alert("Enter valid years");
+	}
+
+	const resDiv = document.getElementById('phil-result');
+	var innerHTML = "<p>Greek Philosopher Results:</p>";
+	innerHTML += "<table border='1'><tr><th>Name</th><th>Years</th><th>Location</th><th>Categories</th></tr>";
+	GREEK_PHILOSOPHERS.forEach(function(s) {
+		if (s.startYear >= date1 && s.endYear <= date2) {
+			innerHTML += "<tr><td>" + s.name + "</td><td>" + 
+				s.startYear + " to " + s.endYear + "</td><td>" + 
+				s.locationName + "</td><td>" + 
+				s.subcategories.join(" ") + "</td></tr>";
+		}
+	});
+	innerHTML += "</table>";
+	resDiv.innerHTML = innerHTML;
+
+	console.log(resDiv.innerHTML);
+
+   prepAudio();
+}
+</script>
+
+
+<div id="title">
+<h1>PollyReadsThePage Dynamic Test Page</h1>
+</div>
+
+<div id="main">
+<p>PollyReadsThePage is a test page for audio readout with highlights. 
+<p onclick="expandCollapseList();">Here are some features:</p>
+<ul id="mainlist">
+<li>Reads dyamic content</li>
+<li>Skips hidden paragraph</li>
+<li>Speaks but does not highlight collapsed content</li>
+<li>Highlights sentences, even ones with awkward punctuation and markup</li>
+<li>Automatically scrolls</li>
+<li>Reads alt text of photos</li>
+<li>Reads table layout in intuitive order: NW, NE, SW, SE.</li>
+<li>Reads tables intuitively</li>
+<li>Reads one sentence at a time. And then highlights the next sentence.</li>
+</ul>
+ <p hidden>This paragraph should be hidden.</p> 
+</div>
+
+<script>
+function expandCollapseList() {
+	const mainlist = document.getElementById("mainlist");
+	const currentState = mainlist.style.display;
+    if(currentState=="none") {
+        mainlist.style.display="block";
+    } else{
+        mainlist.style.display="none";
+    }
+}
+</script>
+
+<table border="1" id="maintable">
+	<tr>
+		<td>
+			<h2>Latest Articles</h2>
+			<div id="articles" />
+		</td>
+		<td>
+			<h2>Photo of the Day</h2>
+			<img src="https://avatar.amuniversal.com/feature_avatars/recommendation_images/features/ga/large_rec-201701251556.jpg" alt="Random picture of cat"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<h2>Quote of the Day</h2>
+			<P>The ability to quote is a serviceable substitute for wit. - Somerset Maugham
+		</td>
+		<td>
+			<h2>Jokes of the Day</h2>
+			<pre>
+1. There's a fine line between a numerator and a denominator. (Only a fraction of people will get this clean joke.)
+
+2. What do dentists call their x-rays?
+
+Tooth pics!
+
+3. Did you hear about the first restaurant to open on the moon?
+
+It had great food, but no atmosphere.
+
+4. What did one ocean say to the other ocean?
+
+Nothing, it just waved.
+
+5. Do you want to hear a construction joke?
+
+Sorry, I'm still working on it.     
+</pre></td>
+	</tr>
+</table>
+
+<div id="search-phil">
+<h2>Greek Philosopher Search By Date</h2>
+<p>Enter year range. Use negative numbers for BC. Example -600 to -300.
+<div id="searchForm">
+<input type="text" id="date1"></input>
+<input type="text" id="date2"></input>
+<button type="button" onclick="findPhilosophers();">Find</button> 
+<div id="phil-result"/>
+</div>
+
+<div id="qbtable">
+<h2>QB Best Sellers</h2>
+<table id="qb" border="2">
+	<tr><th>Author</th><th>Title</th><th>Rank</th></tr>
+	<tr><td><span style="color:blue">Tom Brady</span></td><td>The GOAT Story</td><td>1</td></tr>
+	<tr><td>Norm van Brocklin</td><td>The Old Days</td><td>2</td></tr>
+	<tr><td>Ed Luther</td><td>A Better Dan Fouts</td><td>3</td></tr>
+	<tr><td>Doug Flutie</td><td>I'm Not a Flake. I Just Pitch Cereal</td><td>4</td></tr>
+	<tr><td>Bernie Kosar</td><td>Should Have Been a Steeler</td><td>5</td></tr>
+	<tr><td>George Plimpton</td><td>Ten thousand men of Harvard gained vict'ry today</td><td>11</td></tr>
+	<tr><td>George Plimpton</td><td>Fair Harvard holds sway</td><td>12</td></tr>
+</table>
+</div>
+
+<div id="wrapup">
+
+<form submit="example.com/feedback">
+<p><input type="text" id="word">Your thoughts in one word</input>
+<p><input type="hidden" id="secret" value="abc123"/>
+<p><input type="submit"/>
+</form>
+
+<p>Last updated April 1, 2002
+<p><a href="https://example.com/askmike">Questions for dev team</a>
+
+</div>
+
+</body>
+</html>
