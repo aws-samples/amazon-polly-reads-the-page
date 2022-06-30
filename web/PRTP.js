@@ -21,7 +21,7 @@ Intialization and audio control
 
 const AUDIO_MP3 = {};
 const AUDIO_MARKS = {};
-const SCOLL_MODE = "1";
+const SCROLL_MODE = "1";
 
 // STATIC MP3/MARKS Path
 if (POLLY_PAGE && POLLY_PAGE.length > 0) {
@@ -548,7 +548,6 @@ function buildSSMLSection(section, exclusions) {
         console.log("Skip hidden");
         return;
     }
-
     // examine the section
     const tagName=section.tagName;
     if (tagName) {
@@ -575,7 +574,6 @@ function buildSSMLSection(section, exclusions) {
             case "a":
                 addSSMLValueFromSection(section);
                 break;
-
             // consider img only if it has alt text
             case "img":
                 // TODO - get this working
@@ -654,7 +652,7 @@ function findSentence(ct) {
         }
     }
 }
-
+//Filter the sentence and marks and load it to the audioTracker JSON
 function doLoadMarks(txt) {
     const slines = txt.split("\n");
     var lastMark = null;
@@ -688,7 +686,7 @@ function doLoadMarks(txt) {
         }
     });
 }
-
+//load the marks in audioTracker json
 function loadMarks() {
     // already loaded
     if (audioTracker.sentences[audioTracker.voice]) return;
@@ -707,13 +705,14 @@ function highlight(sentence) {
     // find the node in the DOM for the mark
     if (!sentence.mark.node) {
         const node = getElementByXpath(sentence.mark.value);
-        if (SCOLL_MODE) node.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+        if (SCROLL_MODE) node.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
         // window.scroll({top: node.offsetTop, behavior: 'smooth'});
         if (node && node != null) {
             sentence.mark.node = node;
             sentence.mark.origInnerHTML = node.innerHTML;
             sentence.mark.origInnerText = node.innerText;
             audioTracker.existingMark = sentence.mark;
+            //create a mark to highlight the sentence.
             const mark = document.createElement("mark");
             text = sentence.mark.origInnerHTML
             newText = '<mark>'+text+'</mark>'
@@ -725,7 +724,11 @@ function highlight(sentence) {
         }
     }
 }
+/**
+ *  Unhighlight function to remove the marks from the sentence
+ */
 
+// 
 function unhighlight() {
     if (audioTracker.existingMark) {
         audioTracker.existingMark.node.innerHTML = audioTracker.existingMark.origInnerHTML;

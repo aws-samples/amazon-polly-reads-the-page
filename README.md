@@ -47,7 +47,7 @@ cd amazon-polly-reads-the-page/setup
 sh ./setup.sh <StackName>
 
 # Run Python simple HTTP server
-./runwebserver.sh <IngressCIDR> 
+./run_webserver.sh <IngressCIDR> 
 ```
 
 For <StackName> use the name you gave the CloudFormation stack. For <IngressCIDR>, specify a CIDR range of IP addresses allowed to access the web server. To restrict access to the browser on your local machine, find your IP address using https://whatismyipaddress.com/ and append /32 to specify the CIDR range. For example, if your IP is 10.2.3.4, the CIDR is 10.2.3.4/32. The server listens on port 8080. The public IP address on which the server listens is given in the output. For example:
