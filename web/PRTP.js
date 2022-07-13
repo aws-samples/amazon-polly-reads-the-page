@@ -34,6 +34,9 @@ if (POLLY_PAGE && POLLY_PAGE.length > 0) {
     console.log("DYNAMIC PATH");
 }
 
+var select = document.getElementById('voiceSelect');
+var audioVoice = select.options[select.selectedIndex].text;
+
 // Main data structured used throughout
 const audioTracker = {
     dynamic: POLLY_PAGE ? "N" : "Y",
@@ -51,6 +54,9 @@ const audioTracker = {
     sentences: {},
     marks: {}
 };
+
+//set the src for audicontrol
+audioTracker.audioControl.src = AUDIO_MP3[audioVoice];
 
 function setVoice(voice) {
     console.log("Setting the voice");
