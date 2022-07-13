@@ -21,7 +21,7 @@ Intialization and audio control
 
 const AUDIO_MP3 = {};
 const AUDIO_MARKS = {};
-const SCROLL_MODE = "1";
+const SCOLL_MODE = "1";
 
 // STATIC MP3/MARKS Path
 if (POLLY_PAGE && POLLY_PAGE.length > 0) {
@@ -78,20 +78,22 @@ audioTracker.audioControl.onloadstart = function() {
     if (audioTracker.dynamic == "N") loadMarks();
 }
 
-
+// Function trigger when there is timeupdate on audio stream
 audioTracker.audioControl.ontimeupdate = function() {
     loadMarks(); // in case control did not load
     // latest time in playback
     const ctSec = audioTracker.audioControl.currentTime;
     const ct = ctSec * 1000; //millis
     const audioSentence = findSentence(ct);
+    //unhighlight the text
+    unhighlight();
     if (audioSentence) {
-        if(audioTracker.existingMark !== audioSentence.mark){
-            unhighlight();
-        }
+        // if(audioTracker.existingMark !== audioSentence.mark){
+        //     unhighlight();
+        // }
+        console.log(audioSentence)
         if (audioSentence && audioSentence.mark && audioSentence.mark.value.toLowerCase().startsWith("/html")) {
-            //console.log("To highlight ");
-            //console.log(audioSentence);
+            //highlight the sentece
             highlight(audioSentence);
         }
     }
@@ -548,6 +550,7 @@ function buildSSMLSection(section, exclusions) {
         console.log("Skip hidden");
         return;
     }
+
     // examine the section
     const tagName=section.tagName;
     if (tagName) {
@@ -574,6 +577,7 @@ function buildSSMLSection(section, exclusions) {
             case "a":
                 addSSMLValueFromSection(section);
                 break;
+
             // consider img only if it has alt text
             case "img":
                 // TODO - get this working
@@ -613,7 +617,8 @@ function buildSSMLSection(section, exclusions) {
 }
 
 /**
-Highlight functions
+Highlight functions. 
+This function find the sentence in the audioTracker and return back the node and marks
  */
 
 function findSentence(ct) {
@@ -652,7 +657,7 @@ function findSentence(ct) {
         }
     }
 }
-//Filter the sentence and marks and load it to the audioTracker JSON
+
 function doLoadMarks(txt) {
     const slines = txt.split("\n");
     var lastMark = null;
@@ -686,7 +691,7 @@ function doLoadMarks(txt) {
         }
     });
 }
-//load the marks in audioTracker json
+
 function loadMarks() {
     // already loaded
     if (audioTracker.sentences[audioTracker.voice]) return;
@@ -700,35 +705,33 @@ function loadMarks() {
     console.log(audioTracker);
 }
 
+// Function to highlight the sentence
 function highlight(sentence) {
-    //console.log(sentence.mark.node)
     // find the node in the DOM for the mark
-    if (!sentence.mark.node) {
-        const node = getElementByXpath(sentence.mark.value);
-        if (SCROLL_MODE) node.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-        // window.scroll({top: node.offsetTop, behavior: 'smooth'});
-        if (node && node != null) {
-            sentence.mark.node = node;
-            sentence.mark.origInnerHTML = node.innerHTML;
-            sentence.mark.origInnerText = node.innerText;
-            audioTracker.existingMark = sentence.mark;
-            //create a mark to highlight the sentence.
-            const mark = document.createElement("mark");
-            text = sentence.mark.origInnerHTML
-            newText = '<mark>'+text+'</mark>'
-            node.innerHTML = newText
-
-        } else {
-            //console.log("ERROR - unable to find node for mark " + JSON.stringify(sentence));
-            return;
+    const node = getElementByXpath(sentence.mark.value);
+    if (SCOLL_MODE) node.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+    // window.scroll({top: node.offsetTop, behavior: 'smooth'});
+    if (node && node != null) {
+        sentence.mark.node = node;
+        sentence.mark.origInnerHTML = node.innerHTML;
+        sentence.mark.origInnerText = node.innerText;
+        audioTracker.existingMark = sentence.mark;
+        const mark = document.createElement("mark");
+        var index =  sentence.mark.origInnerHTML.indexOf(sentence.value);
+        if (index >= 0) { 
+        newText =  sentence.mark.origInnerHTML.substring(0,index) + "<mark>" +  sentence.mark.origInnerHTML.substring(index,index+sentence.value.length) + "</mark>" + sentence.mark.origInnerHTML.substring(index + sentence.value.length);
+        }else {
+          console.log("here")
+        text = sentence.mark.origInnerHTML
+        newText = '<mark>'+text+'</mark>'
         }
+        node.innerHTML = newText
+    } else {
+        //console.log("ERROR - unable to find node for mark " + JSON.stringify(sentence));
+        return;
     }
 }
-/**
- *  Unhighlight function to remove the marks from the sentence
- */
 
-// 
 function unhighlight() {
     if (audioTracker.existingMark) {
         audioTracker.existingMark.node.innerHTML = audioTracker.existingMark.origInnerHTML;
