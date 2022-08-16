@@ -106,7 +106,13 @@ Resources:
                   - !Sub arn:aws:s3:::${S3Bucket}
               - Effect: "Allow"
                 Action:
-                  - "polly:*"
+                  - polly:SynthesizeSpeech
+                  - polly:StartSpeechSynthesisTask
+                  - polly:GetSpeechSynthesisTask
+                  - polly:ListSpeechSynthesisTasks
+                  - polly:DescribeVoices
+                  - polly:GetLexicon
+                  - polly:ListLexicons
                 Resource: "*"
   
   # Assigns the roles to the Identity Pool
