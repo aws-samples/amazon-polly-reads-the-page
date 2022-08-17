@@ -90,9 +90,8 @@ Resources:
             Statement: 
               - Effect: "Allow"
                 Action:
-                  - "mobileanalytics:PutEvents"
-                  - "cognito-sync:*"
-                  - "cognito-identity:*"
+                  - "cognito-identity:GetId"
+                  - "cognito-identity:GetCredentialsForIdentity"
                 Resource: "*"
 
               - Effect: "Allow"
