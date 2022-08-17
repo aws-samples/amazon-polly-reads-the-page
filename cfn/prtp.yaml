@@ -1,6 +1,6 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: MIT-0
-Description: Base Template to create Neptune Stack inside a VPC
+Description: Template for PollyReadsThePage
 Parameters:
   EC2InstanceType:
     Description: EC2 instance type on which IDE runs
