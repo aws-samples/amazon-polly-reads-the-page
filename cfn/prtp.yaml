@@ -102,6 +102,9 @@ Resources:
               Federated: "cognito-identity.amazonaws.com"
             Action: 
               - "sts:AssumeRoleWithWebIdentity"
+            Condition:
+              StringEquals:
+                "cognito-identity.amazonaws.com:aud": !Ref IdentityPool
       Policies:
         - PolicyName: "CognitoUnauthorizedPolicy"
           PolicyDocument: 
@@ -110,7 +113,7 @@ Resources:
                 Action:
                   - "cognito-identity:GetId"
                   - "cognito-identity:GetCredentialsForIdentity"
-                Resource: "*"
+                Resource: !Sub arn:aws:cognito-identity:::${IdentityPool}/*
               - Effect: "Allow"
                 Action:
                   - s3:GetObject
