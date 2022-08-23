@@ -76,7 +76,6 @@ Resources:
     Type: "AWS::IAM::Role"
     Properties:
       AssumeRolePolicyDocument: 
-        Version: "2012-10-17"
         Statement:
           - Effect: "Allow"
             Principal: 
@@ -86,23 +85,20 @@ Resources:
       Policies:
         - PolicyName: "CognitoUnauthorizedPolicy"
           PolicyDocument: 
-            Version: "2012-10-17"
             Statement: 
               - Effect: "Allow"
                 Action:
                   - "cognito-identity:GetId"
                   - "cognito-identity:GetCredentialsForIdentity"
                 Resource: "*"
-
               - Effect: "Allow"
                 Action:
                   - s3:GetObject
                   - s3:PutObject
                   - s3:List*
-              - Effect: Allow
                 Resource:
-                  - !Sub arn:aws:s3:::${S3Bucket}/*
-                  - !Sub arn:aws:s3:::${S3Bucket}
+                  - !GetAtt S3Bucket.Arn
+                  - !Sub ${S3Bucket.Arn}/*
               - Effect: "Allow"
                 Action:
                   - polly:SynthesizeSpeech

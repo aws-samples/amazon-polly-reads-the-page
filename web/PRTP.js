@@ -727,7 +727,6 @@ function highlight(sentence) {
         if (index >= 0) { 
         newText =  sentence.mark.origInnerHTML.substring(0,index) + "<mark>" +  sentence.mark.origInnerHTML.substring(index,index+sentence.value.length) + "</mark>" + sentence.mark.origInnerHTML.substring(index + sentence.value.length);
         }else {
-          console.log("here")
         text = sentence.mark.origInnerHTML
         newText = '<mark>'+text+'</mark>'
         }
