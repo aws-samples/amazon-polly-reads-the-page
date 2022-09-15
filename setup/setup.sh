@@ -11,7 +11,7 @@ echo Setup for $STACKNAME
 
 # setup vars
 aws cloudformation describe-stack-resources --stack-name  $STACKNAME --output text | awk -F'\t' '{print $2 " " $3}' | grep -v NOT_CHECKED> vars.txt
-S3_BUCKET=`cat vars.txt | grep S3Bucket | awk '{print $2}'`
+S3_BUCKET=`cat vars.txt | grep -v S3BucketPolicy | grep S3Bucket | awk '{print $2}'`
 IDP=`cat vars.txt | grep IdentityPool | grep -v IdentityPoolRoleMapping | awk '{print $2}'`
 REGION=`echo $IDP | awk -F: '{print $1}'`
 echo "const env = {" > ../web/env.js

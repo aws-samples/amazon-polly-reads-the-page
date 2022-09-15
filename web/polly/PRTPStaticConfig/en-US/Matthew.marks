@@ -45,8 +45,8 @@
 {"time":54836,"type":"ssml","start":2096,"end":2161,"value":"\/html\/body[1]\/table[2]\/tbody[1]\/tr[2]\/td[2]\/pre[1]"}
 {"time":55504,"type":"sentence","start":2161,"end":2163,"value":"1."}
 {"time":56484,"type":"sentence","start":2164,"end":2222,"value":"There's a fine line between a numerator and a denominator."}
-{"time":59739,"type":"sentence","start":2224,"end":2279,"value":"Only a fraction of people will get this clean joke.) "}
-{"time":63169,"type":"sentence","start":2280,"end":2315,"value":"2. What do dentists call their x-rays?"}
+{"time":59739,"type":"sentence","start":2224,"end":2279,"value":"Only a fraction of people will get this clean joke.) 2."}
+{"time":63169,"type":"sentence","start":2280,"end":2315,"value":"What do dentists call their x-rays?"}
 {"time":65311,"type":"sentence","start":2316,"end":2327,"value":"Tooth pics!"}
 {"time":66554,"type":"sentence","start":2328,"end":2330,"value":"3."}
 {"time":67571,"type":"sentence","start":2331,"end":2391,"value":"Did you hear about the first restaurant to open on the moon?"}
