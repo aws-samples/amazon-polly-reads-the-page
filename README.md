@@ -2,7 +2,7 @@
 
 # PollyReadsThePage Blog Example
 
-This repository contains code that accompanies the post "Read Web Pages and Highlight Using Amazon Polly" on the AWS ML blog. (TODO URL)
+This repository contains code that accompanies the post "Read Web Pages and Highlight Using Amazon Polly" on the AWS ML blog: <https://aws.amazon.com/blogs/machine-learning/read-webpages-and-highlight-content-using-amazon-polly/>
 
 ## Introduction
 PollyReadsThePage (PRTP) allows the publisher of a web page to drop onto their page an audio control. When the visitor chooses Play on the control, the control reads the page and highlights the content. The solution uses Polly’s general capability to synthesize speech from text, but how does the solution decide which text from the page to synthesize? How does it know what text to highlight during playback?
